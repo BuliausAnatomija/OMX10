@@ -3,114 +3,225 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OMX Baltic 10 – Redaguojamas Portfelis</title>
+  <title>OMX Baltic 10 – Portfelio Skaičiuoklė</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --bg: #0f1117; --surface: #1a1d27; --surface2: #222536; --border: #2e3148;
-      --accent: #4f80ff; --green: #22c55e; --text: #e8eaf6; --muted: #8b92b4; --radius: 12px;
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #222536;
+      --border: #2e3148;
+      --accent: #4f80ff;
+      --green: #22c55e;
+      --text: #e8eaf6;
+      --muted: #8b92b4;
+      --radius: 12px;
     }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 32px 16px; }
-    h1 { text-align: center; margin-bottom: 4px; font-size: 1.6rem; }
-    .subtitle { text-align: center; color: var(--muted); margin-bottom: 30px; font-size: 0.9rem; }
-    
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; max-width: 1000px; margin: 0 auto 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
-    
-    .controls-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 15px; }
-    .input-group { display: flex; align-items: center; gap: 10px; }
-    .portfolio-input { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1.2rem; padding: 8px; width: 140px; outline: none; border: 1px solid var(--border); }
-    
-    .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
-    
-    .method-toggle { display: flex; background: var(--surface2); padding: 4px; border-radius: 8px; border: 1px solid var(--border); }
-    .method-toggle button { background: transparent; border: none; color: var(--muted); padding: 6px 12px; cursor: pointer; border-radius: 6px; font-weight: 600; transition: 0.2s; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 32px 16px 64px;
+    }
+
+    h1 { text-align: center; font-size: 1.6rem; margin-bottom: 4px; }
+    .subtitle { text-align: center; color: var(--muted); font-size: 0.88rem; margin-bottom: 36px; }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      max-width: 1000px;
+      margin: 0 auto 24px;
+    }
+
+    .controls-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .input-group { display: flex; align-items: center; gap: 12px; }
+
+    .portfolio-input {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 1.3rem;
+      font-weight: 600;
+      padding: 10px 16px;
+      width: 180px;
+      outline: none;
+    }
+
+    .btn-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
+    .method-toggle {
+      display: flex;
+      background: var(--surface2);
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .method-toggle button {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      padding: 8px 16px;
+      cursor: pointer;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
     .method-toggle button.active { background: var(--accent); color: white; }
 
-    .btn-reset { background: #331a1a; color: #ff4f4f; border: 1px solid #552222; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: 0.2s; }
-    .btn-reset:hover { background: #441a1a; border-color: #ff4f4f; }
+    .btn-reset {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
 
+    .btn-info {
+      background: var(--surface2);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .chips { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+    .chip {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      flex: 1;
+      min-width: 160px;
+    }
+    .chip strong { color: var(--text); display: block; font-size: 1rem; margin-top: 2px; }
+
+    .table-wrap { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
-    thead th { padding: 12px; text-align: right; color: var(--muted); border-bottom: 2px solid var(--border); font-size: 0.75rem; text-transform: uppercase; }
+    thead th { padding: 12px 14px; text-align: right; color: var(--muted); border-bottom: 1px solid var(--border); }
     thead th:first-child { text-align: left; }
-    tbody tr { border-bottom: 1px solid var(--border); cursor: pointer; transition: 0.2s; }
-    tbody tr:hover { background: rgba(255, 255, 255, 0.03); }
-    td { padding: 14px 12px; text-align: right; }
+    tbody tr { border-bottom: 1px solid var(--border); cursor: pointer; }
+    tbody tr:hover { background: var(--surface2); }
+    td { padding: 14px; text-align: right; }
     td:first-child { text-align: left; }
 
-    .ticker { font-weight: 700; color: var(--accent); }
-    .cap-badge { background: rgba(239,68,68,0.15); color: #ef4444; font-size: 0.65rem; padding: 2px 5px; border-radius: 4px; margin-left: 5px; font-weight: 800; }
+    .ticker { font-weight: 700; font-size: 1rem; color: var(--text); }
+    .cap-badge { background: rgba(239,68,68,0.15); color: #ef4444; font-size: 0.65rem; padding: 2px 5px; border-radius: 4px; margin-left: 6px; }
+    
     .weight-bar-wrap { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
-    .weight-bar { width: 50px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
-    .weight-bar-fill { height: 100%; background: var(--accent); transition: width 0.3s; }
+    .weight-bar { width: 60px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .weight-bar-fill { height: 100%; background: var(--accent); }
     .weight-bar-fill.capped { background: #ef4444; }
 
-    .price-input { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; color: var(--text); padding: 6px 8px; width: 80px; text-align: right; outline: none; }
-    tfoot td { font-weight: 600; border-top: 2px solid var(--border); padding-top: 20px; font-size: 1rem; }
+    .price-input { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; color: var(--text); padding: 5px 8px; width: 85px; text-align: right; }
+    
+    tfoot td { padding: 16px 14px; font-weight: 600; border-top: 2px solid var(--border); }
 
-    /* Modal */
-    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 100; backdrop-filter: blur(4px); }
-    .modal { background: var(--surface); border: 1px solid var(--border); padding: 25px; border-radius: var(--radius); width: 90%; max-width: 400px; }
-    .modal h2 { margin-bottom: 20px; font-size: 1.2rem; color: var(--text); }
+    /* Modals */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85); display: none;
+      justify-content: center; align-items: center; z-index: 100;
+      backdrop-filter: blur(4px);
+    }
+    .modal {
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 25px; border-radius: var(--radius); width: 90%; max-width: 500px;
+    }
+    .modal h2 { margin-bottom: 15px; }
     .modal-field { margin-bottom: 15px; }
-    .modal-field label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; }
-    .modal-field input { width: 100%; background: var(--surface2); border: 1px solid var(--border); padding: 10px; border-radius: 6px; color: var(--text); outline: none; }
-    .modal-actions { display: flex; gap: 10px; margin-top: 25px; }
+    .modal-field label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 5px; }
+    .modal-field input { width: 100%; background: var(--surface2); border: 1px solid var(--border); padding: 10px; border-radius: 6px; color: var(--text); }
+    .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
     .btn { flex: 1; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
     .btn-save { background: var(--accent); color: white; }
     .btn-cancel { background: var(--surface2); color: var(--text); }
+
+    .info-footer { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--border); }
   </style>
 </head>
 <body>
 
-<h1>OMX Baltic 10 Portfelis</h1>
-<p class="subtitle">Individualus portfelio valdymas ir skaičiavimai</p>
+<h1>OMX Baltic 10 – Portfelio Skaičiuoklė</h1>
+<p class="subtitle">Įvesk portfelio dydį ir sužinok, kiek investuoti į kiekvieną indekso įmonę</p>
 
 <div class="card">
-  <div class="controls-row">
+  <div class="controls-container">
     <div class="input-group">
-      <label>Suma (€):</label>
+      <label>Investuojama suma:</label>
       <input id="portfolioInput" class="portfolio-input" type="number" value="10000">
+      <span style="font-size: 1.2rem; color: var(--muted); font-weight: 600;">€</span>
     </div>
     
-    <div class="btn-group">
-        <div class="method-toggle">
-          <button id="btnFF" class="active" onclick="setMethod('FF')">Free Float</button>
-          <button id="btnFull" onclick="setMethod('Full')">Pilna Kap.</button>
-        </div>
-        <button class="btn-reset" onclick="resetData()">Atstatyti pradinius</button>
+    <div class="btn-row">
+      <button class="btn-info" onclick="openInfo()">Kaip naudotis?</button>
+      <div class="method-toggle">
+        <button id="btnFF" class="active" onclick="setMethod('FF')">Free Float</button>
+        <button id="btnFull" onclick="setMethod('Full')">Pilna Kap.</button>
+      </div>
+      <button class="btn-reset" onclick="resetData()">Atstatyti</button>
     </div>
   </div>
+  
+  <div class="chips" id="summaryChips"></div>
 </div>
 
 <div class="card">
-  <table>
-    <thead>
-      <tr>
-        <th>Įmonė</th>
-        <th>Kaina (€)</th>
-        <th id="capHeader">Rinkos kap. (M€)</th>
-        <th>Svoris</th>
-        <th>Suma (€)</th>
-        <th>Kiekis</th>
-      </tr>
-    </thead>
-    <tbody id="resultsBody"></tbody>
-    <tfoot>
-      <tr>
-        <td colspan="4" style="text-align: right; color: var(--muted);">Iš viso investuojama:</td>
-        <td id="foot-invested" colspan="2"></td>
-      </tr>
-      <tr>
-        <td colspan="4" style="text-align: right; color: var(--muted);">Likutis (grynieji):</td>
-        <td id="foot-remaining" colspan="2" style="color: var(--green)"></td>
-      </tr>
-    </tfoot>
-  </table>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Įmonė</th>
+          <th>Kaina (€)</th>
+          <th id="capHeader">FF Rinkos kap. (M€)</th>
+          <th>Svoris</th>
+          <th>Investuoti (€)</th>
+          <th>Kiekis</th>
+        </tr>
+      </thead>
+      <tbody id="resultsBody"></tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4" style="text-align: right; color: var(--muted);">Iš viso investuojama:</td>
+          <td id="foot-invested" colspan="2" style="color: var(--accent); font-size: 1.1rem;"></td>
+        </tr>
+        <tr>
+          <td colspan="4" style="text-align: right; color: var(--muted);">Likutis (grynieji):</td>
+          <td id="foot-remaining" colspan="2" style="color: var(--green);"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  
+  <div class="info-footer">
+    <span>Duomenų data: 2025-02-28</span>
+    <span>Metodologija: Taikomas 15% limitas vienai pozicijai</span>
+  </div>
 </div>
 
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
-    <h2 id="modalTitle">Redaguoti įmonę</h2>
+    <h2>Redaguoti įmonę</h2>
     <div class="modal-field"><label>Ticker</label><input type="text" id="editTicker"></div>
     <div class="modal-field"><label>Pavadinimas</label><input type="text" id="editName"></div>
     <div class="modal-field"><label>Visos akcijos (Mln.)</label><input type="number" step="0.01" id="editTotal"></div>
@@ -118,6 +229,46 @@
     <div class="modal-actions">
       <button class="btn btn-cancel" onclick="closeModal()">Atšaukti</button>
       <button class="btn btn-save" onclick="saveEdit()">Išsaugoti</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="infoOverlay">
+  <div class="modal" style="max-width: 550px;">
+    <h2 style="color: var(--accent); margin-bottom: 20px;">📈 Skaičiuoklės instrukcija</h2>
+    
+    <div style="text-align: left; line-height: 1.6; font-size: 0.9rem; color: var(--muted); max-height: 450px; overflow-y: auto; padding-right: 10px;">
+      
+      <div style="margin-bottom: 25px;">
+        <p style="color: var(--text); margin-bottom: 12px; font-weight: 500;">Šis įrankis padeda paskirstyti lėšas tarp 10 kompanijų sudarančių OMX Baltic 10 indeksą:</p>
+        <p><strong>1. Suma:</strong> Įveskite norimą investuoti sumą viršutiniame laukelyje.</p>
+        <p><strong>2. Kaina:</strong> Lentelėje galite atnaujinti akcijų kainas (pvz., įvesti paskutinio sandorio kainą biržoje) – programėlė automatiškai perskaičiuos tikslų kiekį, kurį reikėtų įsigyti siekiant atkartoti OMX Baltic 10 indekso sudėtį</p>
+        <p><strong>3. Metodologija:</strong> Galite rinktis <strong>„Free Float“</strong> arba <strong>„Pilnos kapitalizacijos“</strong> indekso skaičiavimo metodiką.</p>
+        <p><strong>4. 15% Cap:</strong> Indekso taisyklės riboja vienos įmonės svorį iki 15%. Viršijus šią ribą, ji pažymima raudonai <span style="color:#ef4444; font-weight:bold;">CAP</span>.</p>
+      </div>
+
+      <div style="border-top: 1px solid var(--border); padding-top: 20px; margin-bottom: 10px;">
+        <h3 style="color: var(--text); font-size: 1rem; margin-bottom: 10px;">🔄 Ką daryti pasikeitus indekso nariui?</h3>
+        
+        <p style="margin-bottom: 10px;">Oficialias naujienas apie <b>OMX Baltic 10</b> sudėties pokyčius galite rasti <a href="https://nasdaqbaltic.com/statistics/lt/news" target="_blank" style="color: var(--accent); text-decoration: none;">Nasdaq Baltic naujienų skiltyje</a>. Sudėtis paprastai peržiūrima du kartus per metus – birželio ir gruodžio mėnesiais.</p>
+        
+        <p style="margin-bottom: 10px;">Jei indekso narys pasikeitė, skaičiuoklėje informaciją atnaujinkite taip:</p>
+        <ul style="padding-left: 20px; margin-bottom: 15px;">
+          <li>Spustelėkite ant keičiamos pozicijos eilutės.</li>
+          <li>Įveskite naujos įmonės pavadinimą, <i>ticker'į</i> bei kainą.</li>
+          <li>Įveskite <b>visų akcijų</b> (Total Shares) ir <b>laisvų akcijų</b> (Free Float) skaičių milijonais.</li>
+        </ul>
+
+        <p style="background: var(--surface2); padding: 12px; border-radius: 8px; font-size: 0.85rem;">
+          💡 <b>Duomenų šaltinis:</b> Tikslius duomenis apie akcijų skaičių rasite <a href="https://markets.ft.com/data" target="_blank" style="color: var(--accent); text-decoration: none;">FT.com Markets</a>. Įveskite įmonės <i>ticker'į</i> ir ieškokite laukelių <i>"Shares outstanding"</i> bei <i>"Free float shares"</i>.
+        </p>
+      </div>
+
+      <p style="margin-top: 15px; font-style: italic; font-size: 0.8rem; text-align: center;">Visi jūsų pakeitimai automatiškai išsaugomi naršyklėje.</p>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-save" onclick="closeInfo()">Supratau</button>
     </div>
   </div>
 </div>
@@ -136,7 +287,7 @@
     { ticker: 'INF1T', name: 'Infortar', totalShares: 21.17, freeFloatShares: 2.16, price: 46.1 }
   ];
 
-  let companies = JSON.parse(localStorage.getItem('omx_v3_data')) || JSON.parse(JSON.stringify(defaultData));
+  let companies = JSON.parse(localStorage.getItem('omx_final_v5')) || JSON.parse(JSON.stringify(defaultData));
   let currentMethod = 'FF';
   let editingIndex = null;
   const CAP = 0.15;
@@ -150,8 +301,8 @@
   }
 
   function resetData() {
-    if (confirm("Ar tikrai norite atstatyti pradinius duomenis? Visi jūsų pakeitimai bus ištrinti.")) {
-        localStorage.removeItem('omx_v3_data');
+    if (confirm("Atstatyti pradinius duomenis?")) {
+        localStorage.removeItem('omx_final_v5');
         companies = JSON.parse(JSON.stringify(defaultData));
         updateResults();
     }
@@ -166,32 +317,33 @@
     document.getElementById('editFF').value = c.freeFloatShares;
     document.getElementById('modalOverlay').style.display = 'flex';
   }
-
   function closeModal() { document.getElementById('modalOverlay').style.display = 'none'; }
+  function openInfo() { document.getElementById('infoOverlay').style.display = 'flex'; }
+  function closeInfo() { document.getElementById('infoOverlay').style.display = 'none'; }
 
   function saveEdit() {
     companies[editingIndex].ticker = document.getElementById('editTicker').value;
     companies[editingIndex].name = document.getElementById('editName').value;
     companies[editingIndex].totalShares = parseFloat(document.getElementById('editTotal').value) || 0;
     companies[editingIndex].freeFloatShares = parseFloat(document.getElementById('editFF').value) || 0;
-    localStorage.setItem('omx_v3_data', JSON.stringify(companies));
+    localStorage.setItem('omx_final_v5', JSON.stringify(companies));
     closeModal();
     updateResults();
   }
 
   function updatePrice(index, val) {
     companies[index].price = parseFloat(val) || 0;
-    localStorage.setItem('omx_v3_data', JSON.stringify(companies));
+    localStorage.setItem('omx_final_v5', JSON.stringify(companies));
     updateResults();
   }
 
   function calcWeights() {
     const mcaps = companies.map(c => (currentMethod === 'FF' ? c.freeFloatShares : c.totalShares) * c.price);
     const totalMcap = mcaps.reduce((a, b) => a + b, 0);
-    let weights = mcaps.map(v => v / totalMcap);
+    let weights = mcaps.map(v => v / (totalMcap || 1));
     let capped = new Array(10).fill(false);
 
-    for (let iter = 0; iter < 10; iter++) {
+    for (let iter = 0; iter < 15; iter++) {
       let excess = 0, uncappedSum = 0;
       weights.forEach((w, i) => {
         if (w > CAP) { excess += (w - CAP); weights[i] = CAP; capped[i] = true; }
@@ -200,12 +352,12 @@
       if (excess <= 0.00001) break;
       weights = weights.map((w, i) => !capped[i] ? w + (excess * (w / uncappedSum)) : w);
     }
-    return { weights, mcaps, capped };
+    return { weights, mcaps, totalMcap, capped };
   }
 
   function updateResults() {
     const portfolio = parseFloat(document.getElementById('portfolioInput').value) || 0;
-    const { weights, mcaps, capped } = calcWeights();
+    const { weights, mcaps, totalMcap, capped } = calcWeights();
     const tbody = document.getElementById('resultsBody');
     tbody.innerHTML = '';
     let totalInvested = 0;
@@ -213,31 +365,37 @@
     companies.forEach((c, i) => {
       const w = weights[i];
       const targetEur = portfolio * w;
-      const q = Math.floor(targetEur / c.price);
+      const q = Math.floor(targetEur / (c.price || 1));
       const actualEur = q * c.price;
       totalInvested += actualEur;
 
       const tr = document.createElement('tr');
       tr.onclick = (e) => { if(e.target.tagName !== 'INPUT') openEdit(i); };
       tr.innerHTML = `
-        <td><span class="ticker">${c.ticker}</span>${capped[i] ? '<span class="cap-badge">CAP</span>' : ''}<br><span style="font-size:0.7rem;color:var(--muted)">${c.name}</span></td>
+        <td><div class="ticker">${c.ticker}${capped[i] ? '<span class="cap-badge">CAP</span>' : ''}</div><div style="font-size:0.75rem; color:var(--muted)">${c.name}</div></td>
         <td><input type="number" class="price-input" value="${c.price}" step="0.001" onclick="event.stopPropagation()" oninput="updatePrice(${i}, this.value)"></td>
         <td>${mcaps[i].toFixed(1)}</td>
         <td>
           <div class="weight-bar-wrap">
             <span>${(w*100).toFixed(2)}%</span>
-            <div class="weight-bar"><div class="weight-bar-fill ${capped[i]?'capped':''}" style="width:${(w/0.15*100)}%"></div></div>
+            <div class="weight-bar"><div class="weight-bar-fill ${capped[i]?'capped':''}" style="width:${(w/CAP*100)}%"></div></div>
           </div>
         </td>
-        <td style="font-weight:700">${targetEur.toLocaleString('lt-LT', {minimumFractionDigits:2, maximumFractionDigits:2})} €</td>
+        <td style="font-weight:700">${targetEur.toLocaleString('lt-LT', {minimumFractionDigits:2})} €</td>
         <td>${q.toLocaleString('lt-LT')} vnt.</td>
       `;
       tbody.appendChild(tr);
     });
 
-    document.getElementById('foot-invested').textContent = totalInvested.toLocaleString('lt-LT', {minimumFractionDigits: 2}) + ' €';
+    document.getElementById('summaryChips').innerHTML = `
+      <div class="chip">Skaičiavimo metodas<strong>${currentMethod === 'FF' ? 'Laisvos akcijos' : 'Pilna kap.'}</strong></div>
+      <div class="chip">Bendra indekso vertė<strong>${totalMcap.toFixed(0)} M€</strong></div>
+      <div class="chip">Investuota<strong>${totalInvested.toLocaleString('lt-LT', {minimumFractionDigits:2})} €</strong></div>
+    `;
+
+    document.getElementById('foot-invested').textContent = totalInvested.toLocaleString('lt-LT', {minimumFractionDigits: 3}) + ' €';
     const remaining = portfolio - totalInvested;
-    document.getElementById('foot-remaining').textContent = remaining.toLocaleString('lt-LT', {minimumFractionDigits: 2}) + ' €';
+    document.getElementById('foot-remaining').textContent = remaining.toLocaleString('lt-LT', {minimumFractionDigits: 3}) + ' €';
   }
 
   document.getElementById('portfolioInput').oninput = updateResults;
