@@ -158,6 +158,16 @@
     .btn-cancel { background: var(--surface2); color: var(--text); }
 
     .info-footer { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--border); }
+
+    /* Disclaimer Section */
+    .disclaimer-card {
+      max-width: 1000px; margin: 0 auto; padding: 20px;
+      background: rgba(239, 68, 68, 0.05);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: var(--radius);
+      font-size: 0.85rem; color: var(--muted); line-height: 1.5;
+    }
+    .disclaimer-card h3 { color: #ef4444; font-size: 0.95rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
   </style>
 </head>
 <body>
@@ -219,6 +229,13 @@
   </div>
 </div>
 
+<div class="disclaimer-card">
+  <h3>⚠️ Atsakomybės apribojimas</h3>
+  <p><strong>SVARBU:</strong> Ši programėlė yra tik pagalbinio, informacinio pobūdžio įrankis.</p>
+  <p>Autorius neprisiima jokios atsakomybės už bet kokius finansinius nuostolius, tiesioginę ar netiesioginę žalą, patirtą naudojantis šia skaičiuokle. Pateikiami duomenys (kainos, akcijų kiekiai) gali būti netikslūs, pasenę arba skirtis nuo oficialių biržos duomenų.</p>
+  <p>Investavimo sprendimus kiekvienas vartotojas priima savarankiškai. Prieš atliekant bet kokius sandorius, privalote patikrinti informaciją oficialiuose šaltiniuose (pvz., <strong>Nasdaq Baltic</strong>). Šis įrankis nėra investavimo rekomendacija ar finansinė konsultacija.</p>
+</div>
+
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <h2>Redaguoti įmonę</h2>
@@ -264,7 +281,11 @@
         </p>
       </div>
 
-      <p style="margin-top: 15px; font-style: italic; font-size: 0.8rem; text-align: center;">Visi jūsų pakeitimai automatiškai išsaugomi naršyklėje.</p>
+      <div style="border-top: 1px solid var(--border); padding-top: 15px;">
+        <p style="font-size: 0.85rem;">Detalesnę informaciją ir dokumentaciją rasite projekto aprašyme:</p>
+        <a href="https://github.com/BuliausAnatomija/OMX10/blob/main/README.md" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">👉 Skaityti GitHub README</a>
+      </div>  
+
     </div>
 
     <div class="modal-actions">
