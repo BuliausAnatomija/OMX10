@@ -1,6 +1,10 @@
 # 📈 OMX Baltic 10 Portfelio Skaičiuoklė
 
-Šis įrankis skirtas investuotojams, norintiems dinamiškai paskirstyti savo lėšas tarp 10 didžiausių Baltijos šalių biržos bendrovių (OMX Baltic 10 indeksas). Programėlė leidžia ne tik matyti oficialų svorių pasiskirstymą, bet ir patiems koreguoti akcijų kainas ar kiekį, siekiant suformuoti asmeninį portfelį.
+Ši programėlė skirta **atkartoti OMX Baltic 10 indekso sudėtį**. Įrankis leidžia paskirstyti lėšas tarp 10 didžiausių Baltijos šalių biržos bendrovių, atsižvelgiant į jų rinkos svorius.
+
+Programėlėje įdiegta galimybė rinktis tarp dviejų skaičiavimo metodologijų:
+* **Free Float (Oficiali indekso metodika):** Apskaičiuoja svorius atsižvelgiant tik į tas akcijas, kurios yra laisvai prieinamos prekybai. Būtent šią metodiką naudoja oficialus OMX Baltic 10 indeksas, todėl ji geriausiai atspindi realią rinkos situaciją.
+* **Full Market Cap (Pilna kapitalizacija):** Apskaičiuoja svorius pagal visą išleistų akcijų rinkos vertę, įskaitant ir tas, kurios nėra laisvai prekiaujamos (pvz., valstybinį kapitalą ar kontrolinius akcininkų paketus).
 
 ## ✨ Pagrindinės funkcijos
 
@@ -20,4 +24,10 @@
 5.  **Likutis:** Apačioje matysite „Grynuosius“ – tai suma, kuri lieka nesuapvalinus akcijų vienetų (likutis po pirkimo).
 
 ## ⚠️ Atsakomybės apribojimas
-Šis įrankis yra informacinio pobūdžio. Duomenys gali vėluoti arba skirtis nuo oficialių biržos duomenų. Prieš priimdami investicinius sprendimus, visada pasitikrinkite informaciją oficialiuose šaltiniuose (pvz., *Nasdaq Baltic*).
+
+**SVARBU:** Ši programėlė yra tik pagalbinio, informacinio pobūdžio įrankis. 
+
+* **Autorius neprisiima jokios atsakomybės** už bet kokius finansinius nuostolius, tiesioginę ar netiesioginę žalą, patirtą naudojantis šia skaičiuokle. 
+* Pateikiami duomenys (kainos, akcijų kiekiai) gali būti netikslūs, pasenę arba skirtis nuo oficialių biržos duomenų.
+* Investavimo sprendimus kiekvienas vartotojas priima savarankiškai. Prieš atliekant bet kokius sandorius, privalote patikrinti informaciją oficialiuose šaltiniuose (pvz., *Nasdaq Baltic*).
+* Šis įrankis nėra investavimo rekomendacija ar finansinė konsultacija.
